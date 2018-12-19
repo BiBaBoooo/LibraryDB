@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class borrow {
 	private String barcode;
-	private String useid;
+	private String userid;
 	private Date borrowdate;
 	private Date backdate;
 	
@@ -12,7 +12,7 @@ public class borrow {
 		this.barcode = barcode;
 	}
 	public void setUseid(String useid) {
-		this.useid = useid;
+		this.userid = useid;
 	}
 	public void setBorrowdate(Date borrowdate) {
 		this.borrowdate = borrowdate;
@@ -25,7 +25,7 @@ public class borrow {
 		return barcode;
 	}
 	public String getUseid() {
-		return useid;
+		return userid;
 	}
 	public Date getBorrowdate() {
 		return borrowdate;
