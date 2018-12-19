@@ -1,9 +1,11 @@
 package DAO;
 
+import java.util.List;
+
 import Bean.borrow;
 
 public interface BorrowDAO {
 
-	public void search(String userid);
+	public List<borrow> search(String userid);
 	public void insert(borrow borrow);
 }

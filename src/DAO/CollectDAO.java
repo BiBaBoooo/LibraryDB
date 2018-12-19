@@ -1,9 +1,11 @@
 package DAO;
 
+import java.util.List;
+
 import Bean.collect;
 
 public interface CollectDAO {
 
-	public void search(String userid);
+	public List<collect> search(String userid);
 	public void insert(collect c);
 }

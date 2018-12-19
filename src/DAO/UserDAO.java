@@ -4,5 +4,5 @@ import Bean.user;
 
 public interface UserDAO {
 
-	public void search(String userid,String pwd);
+	public user search(String userid,String pwd);
 }

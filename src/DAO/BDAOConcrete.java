@@ -1,11 +1,14 @@
 package DAO;
 
+import java.util.List;
+
 import Bean.borrow;
 
 public class BDAOConcrete extends DAOBase implements BorrowDAO {
 
 	@Override
-	public void search(String userid) {
+	public List<borrow> search(String userid) {
+		return null;
 		// TODO Auto-generated method stub
 
 	}

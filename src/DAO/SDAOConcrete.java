@@ -13,7 +13,8 @@ public class SDAOConcrete extends DAOBase implements SepcificBookDAO {
 	}
 
 	@Override
-	public void search(String bookname) {
+	public List<sepcificbook> search(String bookname) {
+		return null;
 		// TODO Auto-generated method stub
 
 	}
@@ -25,7 +26,8 @@ public class SDAOConcrete extends DAOBase implements SepcificBookDAO {
 	}
 
 	@Override
-	public void lookup(String barcode) {
+	public sepcificbook lookup(String barcode) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}

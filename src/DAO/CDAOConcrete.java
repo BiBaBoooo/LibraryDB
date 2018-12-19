@@ -1,11 +1,14 @@
 package DAO;
 
+import java.util.List;
+
 import Bean.collect;
 
 public class CDAOConcrete extends DAOBase implements CollectDAO {
 
 	@Override
-	public void search(String userid) {
+	public List<collect> search(String userid) {
+		return null;
 		// TODO Auto-generated method stub
 
 	}
