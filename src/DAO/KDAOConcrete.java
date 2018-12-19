@@ -11,12 +11,6 @@ public class KDAOConcrete extends DAOBase implements KindbookDAO {
 	}
 
 	@Override
-	public void searchByN(String bookname) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void updateInfo(kindbook k) {
 		// TODO Auto-generated method stub
 
