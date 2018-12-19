@@ -2,11 +2,14 @@ package Bean;
 
 import java.util.Date;
 
+/*
+ * 借阅历史表
+ */
 public class borrow {
-	private String barcode;
-	private String userid;
-	private Date borrowdate;
-	private Date backdate;
+	private String barcode;		//图书条形码
+	private String userid;		//用户ID
+	private Date borrowdate;	//借书时间
+	private Date backdate;		//归还时间
 	
 	public void setBarcode(String barcode) {
 		this.barcode = barcode;
