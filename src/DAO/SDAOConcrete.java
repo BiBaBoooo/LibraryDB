@@ -4,7 +4,7 @@ import java.util.List;
 
 import Bean.sepcificbook;
 
-public class SDAOConcrete extends DAOBase implements SepcificbookDAO {
+public class SDAOConcrete extends DAOBase implements SepcificBookDAO {
 
 	@Override
 	public List<sepcificbook> getAllBook(String sql) {

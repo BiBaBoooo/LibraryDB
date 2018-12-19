@@ -4,7 +4,7 @@ import java.util.List;
 
 import Bean.sepcificbook;
 
-public interface SepcificbookDAO {
+public interface SepcificBookDAO {
 
 	public List<sepcificbook> getAllBook(String sql);
 	public void search(String bookname);	//通过书名搜索
