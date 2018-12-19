@@ -24,4 +24,10 @@ public class SDAOConcrete extends DAOBase implements SepcificbookDAO {
 
 	}
 
+	@Override
+	public void lookup(String barcode) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
