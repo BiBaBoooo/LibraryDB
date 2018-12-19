@@ -2,7 +2,7 @@ package DAO;
 
 import Bean.kindbook;
 
-public class KDAOConcrete extends DAOBase implements KindbookDAO {
+public class KDAOConcrete extends DAOBase implements KindBookDAO {
 
 	@Override
 	public void searchByC(String callnumber) {
