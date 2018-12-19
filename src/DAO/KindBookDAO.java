@@ -7,5 +7,5 @@ import Bean.kindbook;
 public interface KindBookDAO {
 
 	public List<kindbook> searchByC(String callnumber);//²é³ö
-	public void updateInfo(kindbook k);
+	public void updateInfo(kindbook k);//
 }
