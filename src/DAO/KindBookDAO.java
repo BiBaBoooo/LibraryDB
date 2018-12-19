@@ -6,6 +6,6 @@ import Bean.kindbook;
 
 public interface KindBookDAO {
 
-	public List<kindbook> searchByC(String callnumber);//
+	public List<kindbook> searchByC(String callnumber);//²é³ö
 	public void updateInfo(kindbook k);
 }
