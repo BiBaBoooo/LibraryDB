@@ -26,6 +26,7 @@ public class KDAOConcrete extends DAOBase implements KindBookDAO {
 			conn = getConnection();
 			stmt = conn.createStatement();
 			stmt.executeQuery(sql);
+			rs=stmt.getResultSet();
 			while(rs.next()){
 				kindbook kb=new kindbook();
 				kb.setCallnumber(rs.getString("callnumber"));
