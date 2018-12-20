@@ -53,7 +53,7 @@ public class SDAOConcrete extends DAOBase implements SepcificBookDAO {
 	@Override
 	public List<sepcificbook> lookup(String barcode) {
 		String sql="select * from sepcificbook where barcode='"+barcode+"'"; //根据barcode查出指定的书
-		return executeSQL(sql);
+		return executeSQL(sql);//
 		
 	}
 
