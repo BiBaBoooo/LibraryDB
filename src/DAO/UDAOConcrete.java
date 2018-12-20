@@ -9,10 +9,31 @@ import Bean.user;
 public class UDAOConcrete extends DAOBase implements UserDAO {
 
 	@Override
-	public user search(String userid, String pwd) {
-		return null;
-		// TODO Auto-generated method stub
-
+	public user search(String userid) {
+		
+		Connection conn = null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		user u=null;
+		
+		try {
+			conn=getConnection();
+			String sql="select * from user where useris=?";
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, userid);
+			if(rs.next()) {
+				u=new user();
+				u.setUserid(userid);
+				u.setPassword(rs.getString("password"));
+				u.setMaxborrow(rs.getInt("maxborrow"));
+			}
+			rs.close();
+			ps.close();
+			conn.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return u;
 	}
 
 	@Override

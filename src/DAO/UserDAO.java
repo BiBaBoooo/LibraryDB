@@ -4,6 +4,6 @@ import Bean.user;
 
 public interface UserDAO {
 
-	public user search(String userid,String pwd);
-	public user getUser(String userid,String pwd);//ÓÃÓÚµÇÂ½£¨¸ù¾İÊäÈëµÄuserºÍuserpwd½øĞĞ²éÕÒ£©£¬·µ»ØÒ»¸öÓÃ»§ĞÅÏ¢
+	public user search(String userid);
+	public user getUser(String userid,String pwd);//ï¿½ï¿½ï¿½Úµï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½userï¿½ï¿½userpwdï¿½ï¿½ï¿½Ğ²ï¿½ï¿½Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ï¢
 }
