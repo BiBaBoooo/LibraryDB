@@ -5,7 +5,7 @@ import java.util.Date;
 /*
  * 图书馆中所有的书构成的表
  */
-public class sepcificbook {
+public class specificbook {
 
 	private String barcode;		//条形码
 	private String callnumber;	//索书号

@@ -2,6 +2,9 @@ package Bean;
 
 import java.util.Date;
 
+/*
+ * 书的详细信息Bean
+ */
 public class KS {
 
 	private String callnumber;	//索书号
@@ -10,6 +13,10 @@ public class KS {
 	private int count;	//相同的书在图书馆中的数量
 	
 	private String barcode;		//条形码
+	private String content;		//书本简介
+	private String catalog;		//目录
+	private String publish;		//出版社
+	private String topic;		//学科主题
 	private Date buydate;		//购书时间
 	private String place;		//藏书位置
 	private String state;		//是否被借
@@ -38,6 +45,30 @@ public class KS {
 	}
 	public void setCount(int count) {
 		this.count = count;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getCatalog() {
+		return catalog;
+	}
+	public void setCatalog(String catalog) {
+		this.catalog = catalog;
+	}
+	public String getPublish() {
+		return publish;
+	}
+	public void setPublish(String publish) {
+		this.publish = publish;
+	}
+	public String getTopic() {
+		return topic;
+	}
+	public void setTopic(String topic) {
+		this.topic = topic;
 	}
 	public String getBarcode() {
 		return barcode;

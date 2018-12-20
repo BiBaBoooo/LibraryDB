@@ -14,8 +14,8 @@ public class DAOFactory {
 		KindBookDAO k=new KDAOConcrete();
 		return k;
 	}
-	public static SepcificBookDAO getSpecificBookDAO() {
-		SepcificBookDAO k=new SDAOConcrete();
+	public static SpecificBookDAO getSpecificBookDAO() {
+		SpecificBookDAO k=new SDAOConcrete();
 		return k;
 	}
 	public static BorrowDAO getBorrowDAO() {

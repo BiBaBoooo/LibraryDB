@@ -10,6 +10,9 @@ public class kindbook {
 	private String author;	//作者
 	private int count;	//相同的书在图书馆中的数量
 	private String content;		//书本简介
+	private String catalog;		//目录
+	private String publish;		//出版社
+	private String topic;		//学科主题
 	
 	public void setCallnumber(String callnumber) {
 		this.callnumber = callnumber;
@@ -26,6 +29,15 @@ public class kindbook {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public void setCatalog(String catalog) {
+		this.catalog = catalog;
+	}
+	public void setPublish(String publish) {
+		this.publish = publish;
+	}
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
 	
 	public String getCallnumber() {
 		return callnumber;
@@ -41,5 +53,14 @@ public class kindbook {
 	}
 	public String getContent() {
 		return content;
+	}
+	public String getCatalog() {
+		return catalog;
+	}
+	public String getPublish() {
+		return publish;
+	}
+	public String getTopic() {
+		return topic;
 	}
 }
