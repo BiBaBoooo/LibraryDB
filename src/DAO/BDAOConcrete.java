@@ -6,9 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
 import Bean.borrow;
-import Bean.user;
 
 public class BDAOConcrete extends DAOBase implements BorrowDAO {
 
@@ -25,6 +23,7 @@ public class BDAOConcrete extends DAOBase implements BorrowDAO {
 			String sql="select * from borrow where userid=? and status='已借'";
 			ps=conn.prepareStatement(sql);
 			ps.setString(1, userid);
+			rs=ps.getResultSet();
 			if(rs.next()) {
 				borrow book=new borrow();
 				book.setBarcode(rs.getString("barcode"));
@@ -55,6 +54,7 @@ public class BDAOConcrete extends DAOBase implements BorrowDAO {
 			String sql="select * from borrow where userid=? and status='已还'";
 			ps=conn.prepareStatement(sql);
 			ps.setString(1, userid);
+			rs=ps.getResultSet();
 			if(rs.next()) {
 				borrow book=new borrow();
 				book.setBarcode(rs.getString("barcode"));
