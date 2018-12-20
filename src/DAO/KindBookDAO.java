@@ -8,5 +8,5 @@ public interface KindBookDAO {
 
 	public List<kindbook> searchByC(String callnumber);
 	public void updateInfo(kindbook k);
-	public boolean updatekindbook(String kkk,String callnumer);//完善图书详细信息
+	public boolean updatekindbook(String kkk,String callnumer);// 完善图书详细信息
 }
