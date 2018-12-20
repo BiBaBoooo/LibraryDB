@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import Bean.KS;
+import Bean.kindbook;
 import Bean.specificbook;
 
 public class SDAOConcrete extends DAOBase implements SpecificBookDAO {
@@ -37,20 +40,47 @@ public class SDAOConcrete extends DAOBase implements SpecificBookDAO {
 		}
 		return kbooks;
 	}
-	public List<specificbook> search(String bookname) {
-		String sql=null;
-		if(bookname==null)
-			sql="select * from specificbook";  //查出所有的
-		else
-			sql="select * from specificbook where bookname='"+bookname+"'"; //根据bookname查出指定的书
-		
-		return executeSQL(sql);
+	public List<KS> search(String bookname) {
+		String sql="select * from specificbook,kindbook where specificbook.callnumber=kindbook.callnumber and bookname like '%"+bookname+"%'"; //根据bookname查出指定的书
+		List<KS> ks = new ArrayList<KS>();
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try{
+			conn = getConnection();
+			stmt = conn.createStatement();
+			stmt.executeQuery(sql);
+			rs=stmt.getResultSet();
+			while(rs.next()){
+				KS kb=new KS();
+				kb.setCallnumber(rs.getString("callnumber"));
+				kb.setBarcode(rs.getString("barcode"));
+				kb.setBookname(rs.getString("bookname"));
+				kb.setAuthor(rs.getString("author"));
+				kb.setBuydate(rs.getDate("buydate"));
+				kb.setPlace(rs.getString("place"));
+				kb.setState(rs.getString("state"));
+				
+				
+				ks.add(kb);
+			}
+			rs.close();
+			stmt.close();
+			conn.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return ks;
 
 	}
 
 	@Override
 	public List<specificbook> lookup(String barcode) {
-		String sql="select * from specificbook where barcode='"+barcode+"'"; //根据barcode查出指定的书
+		String sql=null;
+		if(barcode==null)
+			sql="select * from sepcificbook";  //查出所有的
+		else
+			sql="select * from sepcificbook where barcode='"+barcode+"'"; //根据barcode查出指定的书
 		return executeSQL(sql);//
 		
 	}
@@ -62,7 +92,7 @@ public class SDAOConcrete extends DAOBase implements SpecificBookDAO {
 		boolean t=false;
 		try{
 			conn=getConnection();
-			String sql="update specificbook set place=? where barcode=?";
+			String sql="update sepcificbook set place=? where barcode=?";
 			pstm=conn.prepareStatement(sql);
 			pstm.setString(1, place);
 			pstm.setString(2, barcode);
