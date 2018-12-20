@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import Bean.borrow;
@@ -14,16 +15,16 @@ public class BDAOConcrete extends DAOBase implements BorrowDAO {
 	@Override
 	public List<borrow> searchCurrent(String userid) {
 		Connection conn = null;
-		PreparedStatement ps=null;
+		Statement s=null;
 		ResultSet rs=null;
 		
 		List<borrow> b=new ArrayList<borrow>();
 		try {
 			conn=getConnection();
-			String sql="select * from borrow where userid=? and status='已借'";
-			ps=conn.prepareStatement(sql);
-			ps.setString(1, userid);
-			rs=ps.getResultSet();
+			String sql="select * from borrow where userid='"+userid+"' and status='已借'";
+			s=conn.createStatement();
+			s.executeQuery(sql);
+			rs=s.getResultSet();
 			if(rs.next()) {
 				borrow book=new borrow();
 				book.setBarcode(rs.getString("barcode"));
@@ -34,7 +35,7 @@ public class BDAOConcrete extends DAOBase implements BorrowDAO {
 				b.add(book);
 			}
 			rs.close();
-			ps.close();
+			s.close();
 			conn.close();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -45,16 +46,16 @@ public class BDAOConcrete extends DAOBase implements BorrowDAO {
 	@Override
 	public List<borrow> searchHistory(String userid) {
 		Connection conn = null;
-		PreparedStatement ps=null;
+		Statement s=null;
 		ResultSet rs=null;
 		
 		List<borrow> b=new ArrayList<borrow>();
 		try {
 			conn=getConnection();
 			String sql="select * from borrow where userid=? and status='已还'";
-			ps=conn.prepareStatement(sql);
-			ps.setString(1, userid);
-			rs=ps.getResultSet();
+			s=conn.createStatement();
+			s.executeQuery(sql);
+			rs=s.getResultSet();
 			if(rs.next()) {
 				borrow book=new borrow();
 				book.setBarcode(rs.getString("barcode"));
@@ -65,7 +66,7 @@ public class BDAOConcrete extends DAOBase implements BorrowDAO {
 				b.add(book);
 			}
 			rs.close();
-			ps.close();
+			s.close();
 			conn.close();
 		}catch (Exception e) {
 			e.printStackTrace();
