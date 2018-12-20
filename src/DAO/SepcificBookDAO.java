@@ -7,7 +7,8 @@ import Bean.sepcificbook;
 public interface SepcificBookDAO {
 
 	public List<sepcificbook> getAllBook(String sql);
-	public List<sepcificbook> search(String bookname);	//通过书名搜索
-	public sepcificbook lookup(String barcode);		//根据条形码查询图书详情
+	public List<sepcificbook> search(String bookname);	//閫氳繃涔﹀悕鎼滅储
+	public sepcificbook lookup(String barcode);		//鏍规嵁鏉″舰鐮佹煡璇㈠浘涔﹁鎯�
 	public void update(sepcificbook s);
+	public boolean updatesecificbook(String place,String  barcode);//更新一本书的位置信息
 }
