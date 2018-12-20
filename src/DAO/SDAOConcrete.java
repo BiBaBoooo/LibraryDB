@@ -2,35 +2,58 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
+import Bean.kindbook;
 import Bean.sepcificbook;
 
 public class SDAOConcrete extends DAOBase implements SepcificBookDAO {
 
-	@Override
-	public List<sepcificbook> getAllBook(String sql) {
-		// TODO Auto-generated method stub
-		return null;
+	protected List<sepcificbook> executeSQL(String sql){
+		List<sepcificbook> kbooks = new ArrayList<sepcificbook>();
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try{
+			conn = getConnection();
+			stmt = conn.createStatement();
+			stmt.executeQuery(sql);
+			rs=stmt.getResultSet();
+			while(rs.next()){
+				sepcificbook kb=new sepcificbook();
+				kb.setCallnumber(rs.getString("callnumber"));
+				kb.setBarcode(rs.getString("barcode"));
+				kb.setBuydate(rs.getDate("buydate"));
+				kb.setPlace(rs.getString("place"));
+				kb.setState(rs.getString("state"));
+				kbooks.add(kb);
+			}
+			rs.close();
+			stmt.close();
+			conn.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return kbooks;
 	}
-
-	@Override
 	public List<sepcificbook> search(String bookname) {
-		return null;
-		// TODO Auto-generated method stub
+		String sql=null;
+		if(bookname==null)
+			sql="select * from sepcificbook";  //查出所有的
+		else
+			sql="select * from sepcificbook where bookname='"+bookname+"'"; //根据bookname查出指定的书
+		
+		return executeSQL(sql);
 
 	}
 
 	@Override
-	public void update(sepcificbook s) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public sepcificbook lookup(String barcode) {
-		return null;
-		// TODO Auto-generated method stub
+	public List<sepcificbook> lookup(String barcode) {
+		String sql="select * from sepcificbook where barcode='"+barcode+"'"; //根据barcode查出指定的书
+		return executeSQL(sql);//
 		
 	}
 
