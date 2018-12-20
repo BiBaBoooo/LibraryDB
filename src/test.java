@@ -46,6 +46,7 @@ public class test {
 							user0(u);
 						}
 					}
+					break;
 				}
 				case 2:{
 					System.out.println("请输入你的email：");
@@ -94,7 +95,8 @@ public class test {
 		List<kindbook> kb=DAOFactory.getKindBookDAO().searchByC(null);
 		for(int i=0;i<kb.size();i++) {
 			kindbook k=kb.get(i);
-			System.out.println(k.getCallnumber()+"\t"+k.getBookname()+"\t"+k.getAuthor()+"\t"+k.getContent()+"\t"+k.getCount());
+			System.out.println(k.getCallnumber()+"\t"+k.getBookname()+"\t"+k.getAuthor()+"\t"+k.getContent()+"\t"+k.getCount()
+					+"\t"+k.getCatalog()+"\t"+k.getPublish()+"\t"+k.getTopic());
 		}
 		
 		System.out.println("请输入要更新的书籍的索书号:");
@@ -104,7 +106,8 @@ public class test {
 		kindbook k0=kblist.get(0);
 		boolean b=true;
 		while(b) {
-			System.out.println(k0.getCallnumber()+"\t"+k0.getBookname()+"\t"+k0.getAuthor()+"\t"+k0.getCount()+"\t"+k0.getContent());
+			System.out.println(k0.getCallnumber()+"\t"+k0.getBookname()+"\t"+k0.getAuthor()+"\t"+k0.getCount()+"\t"
+								+k0.getContent()+"\t"+k0.getCatalog()+"\t"+k0.getPublish()+"\t"+k0.getTopic());
 			System.out.println("请选择要更新的内容:");
 			System.out.println("\t1.书名");
 			System.out.println("\t2。作者");
@@ -138,15 +141,15 @@ public class test {
 					break;
 				}
 				case 5:{
-					
+					k0.setCatalog(s);
 					break;
 				}
 				case 6:{
-					
+					k0.setPublish(s);
 					break;
 				}
 				case 7:{
-					
+					k0.setTopic(s);
 					break;
 				}
 				case 8:{
