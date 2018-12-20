@@ -45,22 +45,45 @@ public class KDAOConcrete extends DAOBase implements KindBookDAO {
 	}
 
 	@Override
-	public void updateInfo(kindbook k) {
-		// TODO Auto-generated method stub
-
+	public boolean updateInfo(kindbook k) {
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		boolean b=false;
+		try {
+			conn=getConnection();
+			pstm=conn.prepareStatement("update kindbook set bookname=?,author=?,count=?,content=? where callnumber=?");
+			pstm.setString(1, k.getBookname());
+			pstm.setString(2, k.getAuthor());
+			pstm.setInt(3, k.getCount());
+			pstm.setString(4, k.getContent());
+			pstm.setString(5, k.getCallnumber());
+			pstm.executeUpdate();
+			b=true;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try{
+				pstm.close();
+				conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return b;
 	}
 
 	@Override
-	public boolean updatekindbook(String kkk, String callnumer) {
+	public boolean updateContent(String content, String callnumber) {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		boolean t=false;
 		try{
 			conn=getConnection();
-			String sql="update kindbook set kkk=? where callnumer=?";
+			String sql="update kindbook set content=? where callnumber=?";
 			pstm=conn.prepareStatement(sql);
-			pstm.setString(1, kkk);
-			pstm.setString(2, callnumer);
+			pstm.setString(1, content);
+			pstm.setString(2, callnumber);
 			pstm.executeUpdate();
 			t=true;
 		}catch(Exception e){
@@ -68,8 +91,8 @@ public class KDAOConcrete extends DAOBase implements KindBookDAO {
 		}
 		finally{
 				try{
-					conn.close();
 					pstm.close();
+					conn.close();
 				}catch(Exception e){
 					e.printStackTrace();
 				}
