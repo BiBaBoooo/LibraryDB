@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Bean.KS;
-import Bean.kindbook;
 import Bean.specificbook;
 
 public class SDAOConcrete extends DAOBase implements SpecificBookDAO {
