@@ -13,7 +13,7 @@ public class DAOBase implements DAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			String url="jdbc:mysql://localhost:3306/librarydb";
 			String user="root";
-			String password="gwy19980811";
+			String password="123";
 			conn=DriverManager.getConnection(url, user, password);
 		}catch (ClassNotFoundException e) {
 			e.printStackTrace();
