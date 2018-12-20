@@ -10,7 +10,7 @@ public class DAOBase implements DAO {
 	public Connection getConnection() {
 		Connection conn=null;
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver");
 			String url="jdbc:mysql://localhost:3306/librarydb";
 			String user="root";
 			String password="gwy19980811";
