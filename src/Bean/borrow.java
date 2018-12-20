@@ -10,11 +10,12 @@ public class borrow {
 	private String userid;		//用户ID
 	private Date borrowdate;	//借书时间
 	private Date backdate;		//归还时间
+	private String status;		//书本状态（是否归还）
 	
 	public void setBarcode(String barcode) {
 		this.barcode = barcode;
 	}
-	public void setUseid(String useid) {
+	public void setUserid(String useid) {
 		this.userid = useid;
 	}
 	public void setBorrowdate(Date borrowdate) {
@@ -23,11 +24,14 @@ public class borrow {
 	public void setBackdate(Date backdate) {
 		this.backdate = backdate;
 	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	
 	public String getBarcode() {
 		return barcode;
 	}
-	public String getUseid() {
+	public String getUserid() {
 		return userid;
 	}
 	public Date getBorrowdate() {
@@ -35,5 +39,8 @@ public class borrow {
 	}
 	public Date getBackdate() {
 		return backdate;
+	}
+	public String getStatus() {
+		return status;
 	}
 }
