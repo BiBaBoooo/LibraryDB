@@ -51,12 +51,15 @@ public class KDAOConcrete extends DAOBase implements KindBookDAO {
 		boolean b=false;
 		try {
 			conn=getConnection();
-			pstm=conn.prepareStatement("update kindbook set bookname=?,author=?,count=?,content=? where callnumber=?");
+			pstm=conn.prepareStatement("update kindbook set bookname=?,author=?,count=?,content=?,catalog=?,publish=?,topic=? where callnumber=?");
 			pstm.setString(1, k.getBookname());
 			pstm.setString(2, k.getAuthor());
 			pstm.setInt(3, k.getCount());
 			pstm.setString(4, k.getContent());
-			pstm.setString(5, k.getCallnumber());
+			pstm.setString(5, k.getCatalog());
+			pstm.setString(6, k.getPublish());
+			pstm.setString(7, k.getTopic());
+			pstm.setString(8, k.getCallnumber());
 			pstm.executeUpdate();
 			b=true;
 		}catch (Exception e) {
