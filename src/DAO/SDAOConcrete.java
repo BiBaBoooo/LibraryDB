@@ -59,7 +59,9 @@ public class SDAOConcrete extends DAOBase implements SpecificBookDAO {
 				kb.setBuydate(rs.getDate("buydate"));
 				kb.setPlace(rs.getString("place"));
 				kb.setState(rs.getString("state"));
-				
+				kb.setCatalog(rs.getString("catalog"));
+				kb.setContent(rs.getString("content"));
+				kb.setPublish(rs.getString("publish"));
 				
 				ks.add(kb);
 			}
@@ -119,6 +121,30 @@ public class SDAOConcrete extends DAOBase implements SpecificBookDAO {
 		try {
 			conn=getConnection();
 			ps=conn.prepareStatement("update specificbook set state='已借' where barcode=?");
+			ps.setString(1, barcode);
+			ps.executeUpdate();
+			b=true;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+				ps.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return b;
+	}
+	@Override
+	public boolean give_backBook(String barcode) {
+		Connection conn=null;
+		PreparedStatement ps=null;
+		boolean b=false;
+		try {
+			conn=getConnection();
+			ps=conn.prepareStatement("update specificbook set state='未借' where barcode=?");
 			ps.setString(1, barcode);
 			ps.executeUpdate();
 			b=true;

@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -133,6 +134,33 @@ public class UDAOConcrete extends DAOBase implements UserDAO {
 			}
 		}
 		return u;
+	}
+
+	@Override
+	public boolean updateEmail(String userid,String email) {
+		Connection conn=null;
+		PreparedStatement ps=null;
+		boolean b=false;
+		try {
+			conn=getConnection();
+			ps=conn.prepareStatement("update user set email=? where userid=?");
+			ps.setString(1, email);
+			ps.setString(2, email);
+			ps.executeUpdate();
+			b=true;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				ps.close();
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return b;
+		
 	}
 
 }

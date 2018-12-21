@@ -9,5 +9,6 @@ public interface UserDAO {
 	public user getUserByID(String userid,String pwd); //ID登陆
 	public user getUserByEM(String email,String pwd); //email登陆
 	public UserInfo queryUser(String userid);		//查询用户详细信息
+	public boolean updateEmail(String userid,String email);		//添加或修改邮箱
 
 }
