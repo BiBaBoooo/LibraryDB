@@ -110,5 +110,30 @@ public class SDAOConcrete extends DAOBase implements SpecificBookDAO {
 		}
 		return t;
 	}
+	@Override
+	public boolean borrowBook(String barcode) {
+		
+		Connection conn=null;
+		PreparedStatement ps=null;
+		boolean b=false;
+		try {
+			conn=getConnection();
+			ps=conn.prepareStatement("update specificbook set state='已借' where barcode=?");
+			ps.setString(1, barcode);
+			ps.executeUpdate();
+			b=true;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+				ps.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return b;
+	}
 
 }

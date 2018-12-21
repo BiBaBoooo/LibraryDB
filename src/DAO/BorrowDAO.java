@@ -8,5 +8,5 @@ public interface BorrowDAO {
 
 	public List<borrow> searchCurrent(String userid);		//查询当前借阅
 	public List<borrow> searchHistory(String userid);		//查询历史借阅
-	public void insert(borrow borrow);		//用户借书
+	public boolean insert(borrow borrow);		//用户借书
 }
