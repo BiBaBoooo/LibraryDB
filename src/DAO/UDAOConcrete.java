@@ -3,7 +3,9 @@ package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
+import Bean.UserInfo;
 import Bean.user;
 
 public class UDAOConcrete extends DAOBase implements UserDAO {
@@ -12,23 +14,23 @@ public class UDAOConcrete extends DAOBase implements UserDAO {
 	public user search(String userid) {
 		
 		Connection conn = null;
-		PreparedStatement ps=null;
+		Statement s=null;
 		ResultSet rs=null;
 		user u=null;
 		
 		try {
 			conn=getConnection();
-			String sql="select * from user where useris=?";
-			ps=conn.prepareStatement(sql);
-			ps.setString(1, userid);
+			String sql="select * from user where userid='"+userid+"'";
+			s=conn.createStatement();
+			rs=s.executeQuery(sql);
+			rs=s.getResultSet();
 			if(rs.next()) {
 				u=new user();
 				u.setUserid(userid);
 				u.setPassword(rs.getString("password"));
-				u.setMaxborrow(rs.getInt("maxborrow"));
 			}
 			rs.close();
-			ps.close();
+			s.close();
 			conn.close();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -37,32 +39,128 @@ public class UDAOConcrete extends DAOBase implements UserDAO {
 	}
 
 	@Override
-	public user getUser(String userid, String pwd) {
+	public user getUserByID(String userid, String pwd) {
 		Connection conn = null;
-		PreparedStatement ps=null;
+		Statement s=null;
 		user user1=null;
 		ResultSet rs=null;
 		try{
 			conn = getConnection();
 			String finalsql = null;
-			finalsql="select * from user where userid=? and password=? ";
-			ps = conn.prepareStatement(finalsql);
-			ps.setString(1, userid);
-			ps.setString(2, pwd);
+			finalsql="select * from user where userid='"+userid+"' and password='"+pwd+"'";
+			s = conn.createStatement();
+			s.executeQuery(finalsql);
+			rs=s.getResultSet();
 			if(rs.next()) {
 				user1=new user();
 				user1.setUserid(userid);
-				user1.setPassword(pwd);
-				
+				user1.setPassword(pwd);			
 			}
 			rs.close();
-			ps.close();
+			s.close();
 			conn.close();
 
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return user1;
+	}
+
+	@Override
+	public user getUserByEM(String email, String pwd) {
+		Connection conn = null;
+		Statement s=null;
+		user user1=null;
+		ResultSet rs=null;
+		try{
+			conn = getConnection();
+			String finalsql = null;
+			finalsql="select * from user where email='"+email+"' and password='"+pwd+"'";
+			s = conn.createStatement();
+			s.executeQuery(finalsql);
+			rs=s.getResultSet();
+			if(rs.next()) {
+				
+				user1=new user();
+				user1.setUserid(rs.getString("userid"));
+				user1.setUserid(email);
+				user1.setPassword(pwd);
+				
+			}
+			rs.close();
+			s.close();
+			conn.close();
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return user1;
+	}
+
+	@Override
+	public UserInfo queryUser(String userid) {
+		
+		Connection conn = null;
+		Statement s=null;
+		ResultSet rs=null;
+		UserInfo u=new UserInfo();
+		
+		try {
+			conn=getConnection();
+			String sql1="select * from user,userdetail where user.userid=userdetail.userid and userid='"+userid+"'";
+			s=conn.createStatement();
+			s.executeQuery(sql1);
+			rs=s.getResultSet();
+			if(rs.next()) {
+				u.setUserid(userid);
+				u.setEmail(rs.getString("email"));
+				u.setName(rs.getString("name"));
+				u.setMaxborrow(rs.getInt("maxborrow"));
+				u.setBorrowcount(rs.getInt("borrowcount"));
+			}
+			rs.close();
+			s.close();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				rs.close();
+				s.close();
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return u;
+	}
+
+	@Override
+	public boolean updateEmail(String userid,String email) {
+		Connection conn=null;
+		PreparedStatement ps=null;
+		boolean b=false;
+		try {
+			conn=getConnection();
+			ps=conn.prepareStatement("update user set email=? where userid=?");
+			ps.setString(1, email);
+			ps.setString(2, email);
+			ps.executeUpdate();
+			b=true;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				ps.close();
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return b;
+		
 	}
 
 }

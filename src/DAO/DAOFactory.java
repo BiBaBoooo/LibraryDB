@@ -14,10 +14,10 @@ public class DAOFactory {
 		KindBookDAO k=new KDAOConcrete();
 		return k;
 	}
-	public static SepcificBookDAO getSpecificBookDAO() {
-		SepcificBookDAO k=new SDAOConcrete();
+	public static SpecificBookDAO getSpecificBookDAO() {
+		SpecificBookDAO k=new SDAOConcrete();
 		return k;
-
+	}
 	public static BorrowDAO getBorrowDAO() {
 		BorrowDAO bDao=new BDAOConcrete();
 		return bDao;
@@ -29,5 +29,9 @@ public class DAOFactory {
 	public static UserDAO getUserDAO() {
 		UserDAO uDao=new UDAOConcrete();
 		return uDao;
+	}
+	public static UserDetailDAO getUserDetailDAO() {
+		UserDetailDAO uDDao=new UDDAOConcrete();
+		return uDDao;
 	}
 }

@@ -3,10 +3,10 @@ package DAO;
 import java.util.List;
 
 import Bean.kindbook;
-import Bean.sepcificbook;
+import Bean.specificbook;
 
 public interface adminDAO {
 
-	public List<kindbook> selectKindBook(String callnumber); //(¸ù¾ÝcallnumberÑ¡³öÊé)
-	public List<sepcificbook> selectSepcificBook(String barcode);//¸ù¾Ýbarcode²éÑ¯
+	public List<kindbook> selectKindBook(String callnumber); //(ï¿½ï¿½ï¿½ï¿½callnumberÑ¡ï¿½ï¿½ï¿½ï¿½)
+	public List<specificbook> selectSpecificBook(String barcode);//ï¿½ï¿½ï¿½ï¿½barcodeï¿½ï¿½Ñ¯
 }
