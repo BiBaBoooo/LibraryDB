@@ -11,4 +11,5 @@ public interface SpecificBookDAO {
 	public List<specificbook> lookup(String barcode);		//根据条形码查询  
 	public boolean updatespecificbook(String place,String  barcode);//更新一本书的位置信息
 	public boolean borrowBook(String barcode);	//借书，修改该书的state属性值为‘已借’
+	public boolean give_backBook(String barcode);	//还书，修改该书的state属性值为‘未借’
 }

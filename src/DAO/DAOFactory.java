@@ -30,4 +30,8 @@ public class DAOFactory {
 		UserDAO uDao=new UDAOConcrete();
 		return uDao;
 	}
+	public static UserDetailDAO getUserDetailDAO() {
+		UserDetailDAO uDDao=new UDDAOConcrete();
+		return uDDao;
+	}
 }
