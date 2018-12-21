@@ -47,9 +47,10 @@ public class CDAOConcrete extends DAOBase implements CollectDAO {
 	}
 
 	@Override
-	public void insert(collect c) {
+	public boolean insert(collect c) {
 		Connection conn=null;
 		PreparedStatement ps=null;
+		boolean b=false;
 		try {
 			conn=getConnection();
 			ps=conn.prepareStatement(CREATE_COLLECT_SQL);
@@ -59,12 +60,19 @@ public class CDAOConcrete extends DAOBase implements CollectDAO {
 			ps.setDate(3, sqlDate);
 			ps.executeUpdate();
 			
-			ps.close();
-			conn.close();
+			b=true;
 		}catch (Exception e) {
 			e.printStackTrace();
 		}	
-
+		finally {
+			try {
+				ps.close();
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return b;
 	}
 
 }

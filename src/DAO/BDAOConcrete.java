@@ -75,9 +75,10 @@ public class BDAOConcrete extends DAOBase implements BorrowDAO {
 	}
 
 	@Override
-	public void insert(borrow borrow) {
+	public boolean insert(borrow borrow) {
 		Connection conn=null;
 		PreparedStatement ps=null;
+		boolean b=false;
 		try {
 			conn=getConnection();
 			ps=conn.prepareStatement(CREATE_BORROW_SQL);
@@ -89,11 +90,19 @@ public class BDAOConcrete extends DAOBase implements BorrowDAO {
 			ps.setDate(4, sqlDate2);
 			ps.setString(5, borrow.getStatus());
 			ps.executeUpdate();
-			ps.close();
-			conn.close();			
+			
+			b=true;		
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		finally {
+			try {
+				ps.close();
+				conn.close();	
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return b;
 	}
 }

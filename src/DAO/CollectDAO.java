@@ -7,5 +7,5 @@ import Bean.collect;
 public interface CollectDAO {
 
 	public List<collect> search(String userid);
-	public void insert(collect c);
+	public boolean insert(collect c);
 }

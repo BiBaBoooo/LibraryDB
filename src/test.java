@@ -1,14 +1,16 @@
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 import Bean.KS;
 import Bean.borrow;
+import Bean.collect;
 import Bean.kindbook;
 import Bean.specificbook;
 import Bean.user;
 import DAO.DAOFactory;
 
-import java.io.*;
 
 public class test {
 
@@ -65,7 +67,7 @@ public class test {
 				}
 			}
 		}
-		
+		sc.close();
 	}
 	protected static void admin(user u) {
 		Scanner sc=new Scanner(System.in);
@@ -91,6 +93,7 @@ public class test {
 				}
 			}
 		}	
+		sc.close();
 	}
 	protected static void adminUpdateDetail() {//更新书籍详细信息
 		//先输出所有的书籍信息
@@ -169,6 +172,7 @@ public class test {
 			}
 			DAOFactory.getKindBookDAO().updateInfo(k0);
 		}
+		sc.close();
 	}
 	protected static void adminUpdateLocation() {//完善借阅位置的相关信息
 		//先输出所有的书籍位置信息
@@ -191,6 +195,7 @@ public class test {
 			System.out.println("\n索书号:\t条形码:\t借阅室:\t书刊状态:");
 			System.out.println(sb0.getCallnumber()+"\t"+sb0.getBarcode()+"\t"+sb0.getPlace()+"\t"+sb0.getState());
 		}
+		sc.close();
 	}
 	protected static void user0(user u) {
 		Scanner sc=new Scanner(System.in);
@@ -206,7 +211,7 @@ public class test {
 			int temp=Integer.parseInt(sc.nextLine());
 			switch(temp) {
 				case 1:{
-					userSearchBook();	//搜索图书
+					userSearchBook(u.getUserid());	//搜索图书
 					break;
 				}
 				case 2:{
@@ -231,10 +236,80 @@ public class test {
 				}
 			}
 		}
+		sc.close();
 	}
-	protected static void userSearchBook() {
-		System.out.print("请输入你要查询的图书书名");
+	protected static void userSearchBook(String userid) {
+		Scanner sc=new Scanner(System.in);
+		System.out.print("请输入你要查询的图书书名：");
+		String name=sc.nextLine();
+		List<KS> k=DAOFactory.getSpecificBookDAO().search(name);
+		System.out.println("一共找到了"+k.size()+"本书");
+		for(int i=0;i<k.size();i++) {
+			KS k0=k.get(i);
+			System.out.println("索书号："+k0.getBarcode());
+			System.out.println("书   名："+k0.getBookname());
+			System.out.println("作   者："+k0.getAuthor());
+			System.out.println("存放地："+k0.getPlace());
+			System.out.println("状   态："+k0.getState());
+			System.out.println("内   容："+k0.getContent());
+			System.out.println("章   节："+k0.getCatalog());
+			System.out.println("出版社；"+k0.getPublish());
+			System.out.println("请选择以下功能：");
+			System.out.println("\t1.借阅");
+			System.out.println("\t2.加入暂存书架");
+			System.out.println("\t3.查看下一本书");
+			boolean b=true;
+			while(b) {
+				int temp=Integer.parseInt(sc.nextLine());
+				switch(temp) {
+					case 1:{
+						if(k0.getState().equals("已借")) {
+							System.out.println("不可借阅");
+						}
+						else { //可借阅
+							borrowBook(userid,k0.getBarcode());
+						}
+						break;
+					}
+					case 2:{
+						collectBook(userid,k0.getBarcode());
+						break;
+					}
+					case 3:{
+						b=false;
+						break;
+					}
+				}
+			}
+		}
+		sc.close();		
+	}
+	private static void collectBook(String userid, String barcode) {
+		collect c=new collect();
+		c.setUserid(userid);
+		c.setBarcode(barcode);
+		Calendar calendar=Calendar.getInstance();
+		Date collectdate=calendar.getTime();
+		c.setCollectdate(collectdate);
 		
+		boolean b=DAOFactory.getCollectDAO().insert(c);
+		if(b==true)
+			System.out.println("加入成功");
+	}
+	private static void borrowBook(String userid,String barcode) {
+		borrow b=new borrow();
+		b.setBarcode(barcode);
+		b.setUserid(userid);
+		
+		Calendar calendar=Calendar.getInstance();
+		Date borrowdate=calendar.getTime();
+		b.setBorrowdate(borrowdate);
+		boolean t1=DAOFactory.getBorrowDAO().insert(b);
+		boolean t2=DAOFactory.getSpecificBookDAO().borrowBook(barcode);
+		if(t1==true&&t2==true)
+			System.out.println("借书成功");
+		else
+			System.out.println("借书失败");		
 	}
 	private static void userSearchCollect(String userid) {
 		// TODO Auto-generated method stub
@@ -244,12 +319,13 @@ public class test {
 		// TODO Auto-generated method stub
 		
 	}
-	private static void userHistoryBorrow(String string) {
+	private static void userHistoryBorrow(String userid) {
 		// TODO Auto-generated method stub
 		
 	}
-	private static void userCurrentBorrow(String string) {
-		// TODO Auto-generated method stub
+	private static void userCurrentBorrow(String userid) {
+		List<borrow> borrows=DAOFactory.getBorrowDAO().searchCurrent(userid);
+		
 		
 	}
 }
