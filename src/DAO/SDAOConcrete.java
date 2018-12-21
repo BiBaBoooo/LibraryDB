@@ -77,9 +77,9 @@ public class SDAOConcrete extends DAOBase implements SpecificBookDAO {
 	public List<specificbook> lookup(String barcode) {
 		String sql=null;
 		if(barcode==null)
-			sql="select * from sepcificbook";  //查出所有的
+			sql="select * from specificbook";  //查出所有的
 		else
-			sql="select * from sepcificbook where barcode='"+barcode+"'"; //根据barcode查出指定的书
+			sql="select * from specificbook where barcode='"+barcode+"'"; //根据barcode查出指定的书
 		return executeSQL(sql);//
 		
 	}
@@ -91,7 +91,7 @@ public class SDAOConcrete extends DAOBase implements SpecificBookDAO {
 		boolean t=false;
 		try{
 			conn=getConnection();
-			String sql="update sepcificbook set place=? where barcode=?";
+			String sql="update specificbook set place=? where barcode=?";
 			pstm=conn.prepareStatement(sql);
 			pstm.setString(1, place);
 			pstm.setString(2, barcode);

@@ -106,26 +106,19 @@ public class UDAOConcrete extends DAOBase implements UserDAO {
 		
 		try {
 			conn=getConnection();
-			String sql1="select * from userdetail where userid='"+userid+"'";
+			String sql1="select * from user,userdetail where user.userid=userdetail.userid and userid='"+userid+"'";
 			s=conn.createStatement();
 			s.executeQuery(sql1);
 			rs=s.getResultSet();
 			if(rs.next()) {
 				u.setUserid(userid);
+				u.setEmail(rs.getString("email"));
 				u.setName(rs.getString("name"));
 				u.setMaxborrow(rs.getInt("maxborrow"));
 				u.setBorrowcount(rs.getInt("borrowcount"));
 			}
 			rs.close();
 			s.close();
-			
-			String sql2="select * from user where userid='"+userid+"'";
-			s=conn.createStatement();
-			s.executeQuery(sql2);
-			rs=s.getResultSet();
-			if(rs.next()) {
-				u.setEmail(rs.getString("email"));
-			}
 			
 		}catch (Exception e) {
 			e.printStackTrace();
