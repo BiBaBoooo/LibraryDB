@@ -104,4 +104,33 @@ public class KDAOConcrete extends DAOBase implements KindBookDAO {
 		return t;
 	}
 
+	@Override
+	public List<kindbook> searchByname(String name) {
+		String sql="select * from kindbook where bookname='"+name+"'"; //根据name查出指定的书
+		List<kindbook> kbooks = new ArrayList<kindbook>();
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try{
+			conn = getConnection();
+			stmt = conn.createStatement();
+			stmt.executeQuery(sql);
+			rs=stmt.getResultSet();
+			while(rs.next()){
+				kindbook kb=new kindbook();
+				kb.setCallnumber(rs.getString("callnumber"));
+				kb.setBookname(rs.getString("bookname"));
+				kb.setAuthor(rs.getString("author"));
+				kb.setCount(rs.getInt("count"));
+				kbooks.add(kb);
+			}
+			rs.close();
+			stmt.close();
+			conn.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return kbooks;
+		
+	}
 }

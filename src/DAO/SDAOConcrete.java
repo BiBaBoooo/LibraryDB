@@ -161,5 +161,11 @@ public class SDAOConcrete extends DAOBase implements SpecificBookDAO {
 		}
 		return b;
 	}
+	//@Override
+	//public specificbook searchone(String barcode) {
+	//	String sql="select * from specificbook where specificbook.carbode='"+barcode+"'"; //根据barcode查出指定的书
+
+	//	return null;
+	//}
 
 }
