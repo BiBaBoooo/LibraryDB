@@ -6,6 +6,7 @@ import java.util.Date;
  * 借阅历史表
  */
 public class borrow {
+	//
 	private String barcode;		//图书条形码
 	private String userid;		//用户ID
 	private Date borrowdate;	//借书时间
