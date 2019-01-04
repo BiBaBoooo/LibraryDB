@@ -309,7 +309,7 @@ public class test {
 		System.out.println("您的暂藏书架一共有"+collects.size()+"本书");
 		for(int i=0;i<collects.size();i++) {
 			KS collect=collects.get(i);
-			System.out.print("索书号:"+collect.getCallnumber()+"  "+"条形码:"+collect.getBarcode()+"  "+"书名:"+collect.getBookname()+"  "+"作者:"+collect.getAuthor()+" "+"借阅室"+collect.getPlace()+"  "+"书刊状态:"+collect.getState());
+			System.out.print("索书号:"+collect.getCallnumber()+"  "+"条形码:"+collect.getBarcode()+"  "+"书名:"+collect.getBookname()+"  "+"作者:"+collect.getAuthor()+"  "+"借阅室"+collect.getPlace()+"  "+"书刊状态:"+collect.getState());
 			String string=DAOFactory.getKCDAO().searchByC(collect.getCallnumber());
 			if(string==null)
 				System.out.println("图书类型 :暂无分类");
