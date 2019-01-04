@@ -308,47 +308,15 @@ public class test {
 		List<KS> collects=DAOFactory.getCollectDAO().search(userid);
 		System.out.println("您的暂藏书架一共有"+collects.size()+"本书");
 		for(int i=0;i<collects.size();i++) {
-			KS collect=new KS();
-			System.out.println("索书号:"+collect.getCallnumber());
-			System.out.println("条形码:"+collect.getBarcode());
-			System.out.println("书名:"+collect.getBookname());
-			System.out.println("作者:"+collect.getAuthor());
-			System.out.println("借阅室"+collect.getPlace());
-			System.out.println("书刊状态:"+collect.getState());
-			
-			Scanner sc=new Scanner(System.in);
-			boolean b=true;
-			while(b) {
-				System.out.println("请输入以下功能编号:");
-				System.out.println("\t1.借阅该书刊");
-				System.out.println("\t2.将该书刊移除暂藏书架");
-				System.out.println("\t3.返回上级选择");
-				int temp=Integer.parseInt(sc.nextLine());
-				switch(temp) {
-					case 1:{
-						if(collect.getState()=="已借")
-							System.out.println("不可借阅");
-						else {
-							borrowBook(userid,collect.getBarcode());
-						}
-						break;
-					}
-					case 2:{
-						boolean t=DAOFactory.getCollectDAO().delete(userid, collect.getBarcode());
-						if(t==true)
-							System.out.println("移除成功");
-						else 
-							System.out.println("移除失败");
-						break;
-					}
-					case 3:{
-						b=false;
-						break;
-					}
-				}
-			}
+			KS collect=collects.get(i);
+			System.out.print("索书号:"+collect.getCallnumber()+"  "+"条形码:"+collect.getBarcode()+"  "+"书名:"+collect.getBookname()+"  "+"作者:"+collect.getAuthor()+" "+"借阅室"+collect.getPlace()+"  "+"书刊状态:"+collect.getState());
+			String string=DAOFactory.getKCDAO().searchByC(collect.getCallnumber());
+			if(string==null)
+				System.out.println("图书类型 :暂无分类");
+			else 
+				System.out.println("图书类型:"+string);		
 		}
-		
+		print2(userid);
 	}
 	private static void userInformation(String userid) {
 		UserInfo user=DAOFactory.getUserDAO().queryUser(userid);//查找用户
@@ -522,6 +490,50 @@ public class test {
 						break;
 					}
 					case 5:{
+						return;
+					}
+				}
+			}
+		}
+	}
+	private static void print2(String bookid) {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("请输入您想操作书本的条形码:");
+		String ssh=sc.nextLine();
+		List<specificbook> kk=DAOFactory.getSpecificBookDAO().lookup(ssh);//查找图书
+		if(kk.size()==0) {
+			System.out.println("条形码输入错误");
+			return;
+		}	
+		else {
+			boolean b=true;
+			while(b) {
+				
+				specificbook k0=DAOFactory.getSpecificBookDAO().lookup(ssh).get(0);
+				System.out.println("请选择以下功能:");
+				System.out.println("\t1.借阅该书刊");
+				System.out.println("\t2.将该书刊移除暂藏书架");
+				System.out.println("\t3.返回上级选择");
+				int temp=Integer.parseInt(sc.nextLine());
+				switch(temp) {
+					case 1:{
+						if(k0.getState().equals("已借")) {
+							System.out.println("不可借阅");
+						}
+						else { //可借阅
+							borrowBook(bookid,k0.getBarcode());
+						}
+						break;
+					}	
+					case 2:{
+						boolean t=DAOFactory.getCollectDAO().delete(bookid, k0.getBarcode());
+						if(t==true)
+							System.out.println("移除成功");
+						else 
+							System.out.println("移除失败");
+						break;
+					}
+					case 3:{
 						return;
 					}
 				}
