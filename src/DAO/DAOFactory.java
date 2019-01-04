@@ -39,4 +39,12 @@ public class DAOFactory {
 		CommentDAO uDDao=new CMDAOConcrete();
 		return uDDao;
 	}
+	public static CategoryDAO getCategoryDAO() {
+		CategoryDAO uDDao=new CategoryDAOConcrete();
+		return uDDao;
+	}
+	public  static KCDAO getKCDAO() {
+		KCDAO uDDao=new KCDAOConcrete();
+		return uDDao;
+	}
 }
