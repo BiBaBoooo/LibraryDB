@@ -23,7 +23,7 @@ public class test {
 		//	KS k=ks.get(i);
 		//	System.out.println(k.getBarcode()+"\t"+k.getBookname());
 		//}
-		
+		//
 		Scanner sc=new Scanner(System.in);
 		boolean b=true;
 		while(b) {
