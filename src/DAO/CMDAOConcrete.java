@@ -15,9 +15,11 @@ public class CMDAOConcrete extends DAOBase implements CommentDAO{
 
 	@Override
 	public boolean addComment(String userid,String callnumber,String comment) {
+		
 		Connection conn=null;
 		PreparedStatement ps=null;
 		boolean b=false;
+		
 		try {
 			conn=getConnection();
 			String sql="insert into comment values(?,?,?,?)";
