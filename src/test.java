@@ -4,11 +4,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import Bean.BorrowBook;
+import Bean.Category;
 import Bean.KS;
 import Bean.UserInfo;
 import Bean.borrow;
 import Bean.collect;
 import Bean.comment;
+import Bean.kc;
 import Bean.kindbook;
 import Bean.specificbook;
 import Bean.user;
@@ -255,7 +257,12 @@ public class test {
 		System.out.println("一共找到了"+k.size()+"本书");
 		for(int i=0;i<k.size();i++) {
 			KS k0=k.get(i);
-			System.out.println("索书号:"+k0.getCallnumber()+"  "+"条形码:"+k0.getBarcode()+"  "+"书名:"+k0.getBookname()+"  "+"作者:"+k0.getAuthor()+"  "+"章节:"+k0.getCatalog()+"  "+"内容:"+k0.getContent()+"  "+"出版社:"+k0.getPublish()+"  "+"存放地:"+k0.getPlace()+"  "+"状态:"+k0.getState());
+			System.out.print("索书号:"+k0.getCallnumber()+"  "+"条形码:"+k0.getBarcode()+"  "+"书名:"+k0.getBookname()+"  "+"作者:"+k0.getAuthor()+"  "+"章节:"+k0.getCatalog()+"  "+"内容:"+k0.getContent()+"  "+"出版社:"+k0.getPublish()+"  "+"存放地:"+k0.getPlace()+"  "+"状态:"+k0.getState()+"  "+"类型:");
+			String string=DAOFactory.getKCDAO().searchByC(k0.getCallnumber());
+			if(string==null)
+				System.out.println("暂未分类");
+			else
+				System.out.println(string);
 		}
 		printl(userid);
 		
