@@ -38,8 +38,6 @@ public class CategoryDAOConcrete extends DAOBase implements CategoryDAO{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		// TODO Auto-generated method stub
 		return kbooks;
 	}
-		//
 }
