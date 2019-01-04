@@ -13,7 +13,6 @@ import Bean.kindbook;
 
 public class KCDAOConcrete extends DAOBase implements KCDAO {
 
-	@Override
 	public String searchByC(String callnumber) {
 		
 		String sql="select * from category,kc where category.cID=kc.cID and kc.callnumber='"+callnumber+"'";
@@ -32,6 +31,7 @@ public class KCDAOConcrete extends DAOBase implements KCDAO {
 				String xx=rs.getString("cName");
 				type=type+xx+"¡¢";
 			}
+			
 			rs.close();
 			stmt.close();
 			conn.close();
