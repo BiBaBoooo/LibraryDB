@@ -336,7 +336,6 @@ public class test {
 					}
 				}
 			}
-			//sc.close();
 		}
 		
 	}
@@ -371,7 +370,6 @@ public class test {
 				}
 			}
 		}
-		//sc.close();
 	}
 	private static void userHistoryBorrow(String userid) {
 		List<BorrowBook> books=DAOFactory.getBorrowDAO().searchHistory(userid);
@@ -403,7 +401,6 @@ public class test {
 					}
 				}
 			}
-			//sc.close();
 		}
 	}
 	private static void userCurrentBorrow(String userid) {
@@ -446,7 +443,6 @@ public class test {
 					}
 				}
 			}
-			//sc.close();
 		}
 	}
 	
@@ -519,8 +515,6 @@ public class test {
 					}
 				}
 			}
-			
-
 		}
 	}
 }
