@@ -427,35 +427,6 @@ public class test {
 			else 
 				System.out.println("图书类型:"+string);	
 			print3(userid);
-			/*
-			 * Scanner sc=new Scanner(System.in);
-			boolean b=true;
-			while(b) {
-				System.out.println("请选择以下功能:");
-				System.out.println("\t1.归还该书刊");
-				System.out.println("\t2.查看下一本书");
-				System.out.println("\t3.返回上级选择");
-				int temp=Integer.parseInt(sc.nextLine());
-				switch(temp) {
-					case 1:{
-						boolean b1=DAOFactory.getBorrowDAO().updateStatus(userid, book.getBarcode());//修改图书状态
-						boolean b2=DAOFactory.getSpecificBookDAO().give_backBook(book.getBarcode());
-						boolean b3=DAOFactory.getUserDetailDAO().subBorrowCount(userid);
-						if(b1==true&&b2==true&&b3==true)
-							System.out.println("还书成功");
-						else
-							System.out.println("还书失败");
-						break;
-					}
-					case 2:{
-						b=false;
-						break;
-					}
-					case 3:{
-						return;
-					}
-				}
-			 */
 		}
 	}
 	
@@ -504,7 +475,7 @@ public class test {
 						if(k0.getState().equals("已借")) {
 							System.out.println("不可借阅");
 						}
-						else { //可借阅
+						else { 
 							borrowBook(userid,k0.getBarcode());
 						}
 						break;
