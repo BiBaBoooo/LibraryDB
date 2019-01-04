@@ -45,12 +45,12 @@ public class test {
 					}
 					else {
 						if(userid.equals("admin")) {
-							//进行管理员的相关操作
-							admin(u);
+							
+							admin(u);//进行管理员的相关操作
 						}
 						else {
-							//普通用户的相关操作
-							user0(u);
+							
+							user0(u);//普通用户的相关操作
 						}
 					}
 					break;
@@ -61,6 +61,7 @@ public class test {
 					System.out.println("请输入你的密码:");
 					String pwd=sc.nextLine();
 					user u=DAOFactory.getUserDAO().getUserByEM(email, pwd);
+					
 					user0(u);	//只有普通用户有邮箱登陆相关操作,管理员没有邮箱
 					break;
 				}
@@ -98,7 +99,9 @@ public class test {
 		}	
 		//sc.close();
 	}
+	
 	protected static void adminUpdateDetail() {//更新书籍详细信息
+		
 		//先输出所有的书籍信息
 		List<kindbook> kb=DAOFactory.getKindBookDAO().searchByC(null);
 		for(int i=0;i<kb.size();i++) {
@@ -173,11 +176,12 @@ public class test {
 					break;
 				}
 			}
-			DAOFactory.getKindBookDAO().updateInfo(k0);
+			DAOFactory.getKindBookDAO().updateInfo(k0);//更新图书信息
 		}
-		//sc.close();
+		
 	}
 	protected static void adminUpdateLocation() {//完善借阅位置的相关信息
+		
 		//先输出所有的书籍位置信息
 		List<specificbook> skook=DAOFactory.getSpecificBookDAO().lookup(null);
 		System.out.println("\n索书号:\t条形码:\t借阅室:\t书刊状态:");
@@ -261,11 +265,11 @@ public class test {
 		collect c=new collect();
 		c.setUserid(userid);
 		c.setBarcode(barcode);
-		Calendar calendar=Calendar.getInstance();
+		Calendar calendar=Calendar.getInstance();//获取时间
 		Date collectdate=calendar.getTime();
 		c.setCollectdate(collectdate);
 		
-		boolean b=DAOFactory.getCollectDAO().insert(c);
+		boolean b=DAOFactory.getCollectDAO().insert(c);//插入借书记录
 		if(b==true)
 			System.out.println("加入成功");
 		else 
@@ -283,8 +287,8 @@ public class test {
 		boolean temp=DAOFactory.getUserDetailDAO().checkMaxBorrow(userid);
 		if(temp==true) {
 			boolean t1=DAOFactory.getBorrowDAO().insert(b);
-			boolean t2=DAOFactory.getSpecificBookDAO().borrowBook(barcode);
-			boolean t3=DAOFactory.getUserDetailDAO().addBorrowCount(userid);
+			boolean t2=DAOFactory.getSpecificBookDAO().borrowBook(barcode);//改变书本的状态‘已借’
+			boolean t3=DAOFactory.getUserDetailDAO().addBorrowCount(userid);//当前借书量++
 			if(t1==true&&t2==true&&t3==true)
 				System.out.println("借书成功");
 			else
@@ -340,7 +344,7 @@ public class test {
 		
 	}
 	private static void userInformation(String userid) {
-		UserInfo user=DAOFactory.getUserDAO().queryUser(userid);
+		UserInfo user=DAOFactory.getUserDAO().queryUser(userid);//查找用户
 		user u=DAOFactory.getUserDAO().search(userid);
 	   //System.out.println(u.getEmail());
 	    System.out.println(u.getUserid());
@@ -360,7 +364,7 @@ public class test {
 			switch(temp) {
 				case 1:{
 					String email=sc.nextLine();
-					boolean t=DAOFactory.getUserDAO().updateEmail(userid, email);
+					boolean t=DAOFactory.getUserDAO().updateEmail(userid, email);//添加Email
 					if(t==true)
 						System.out.println("更新成功");
 					break;
@@ -372,7 +376,7 @@ public class test {
 		}
 	}
 	private static void userHistoryBorrow(String userid) {
-		List<BorrowBook> books=DAOFactory.getBorrowDAO().searchHistory(userid);
+		List<BorrowBook> books=DAOFactory.getBorrowDAO().searchHistory(userid);//查询历史纪录
 		System.out.println("您看过"+books.size()+"本书");
 		for(int i=0;i<books.size();i++) {
 			BorrowBook book=books.get(0);
@@ -404,7 +408,7 @@ public class test {
 		}
 	}
 	private static void userCurrentBorrow(String userid) {
-		List<BorrowBook> books=DAOFactory.getBorrowDAO().searchCurrent(userid);
+		List<BorrowBook> books=DAOFactory.getBorrowDAO().searchCurrent(userid);//查询当前记录
 		System.out.println("当前借阅"+books.size()+"本书");
 		for(int i=0;i<books.size();i++) {
 			BorrowBook book=books.get(0);
@@ -425,7 +429,7 @@ public class test {
 				int temp=Integer.parseInt(sc.nextLine());
 				switch(temp) {
 					case 1:{
-						boolean b1=DAOFactory.getBorrowDAO().updateStatus(userid, book.getBarcode());
+						boolean b1=DAOFactory.getBorrowDAO().updateStatus(userid, book.getBarcode());//修改图书状态
 						boolean b2=DAOFactory.getSpecificBookDAO().give_backBook(book.getBarcode());
 						boolean b3=DAOFactory.getUserDetailDAO().subBorrowCount(userid);
 						if(b1==true&&b2==true&&b3==true)
@@ -450,13 +454,13 @@ public class test {
 		Scanner sc=new Scanner(System.in);
 		System.out.println("请输入您的评价:");
 		String comment=sc.nextLine();
-		boolean t=DAOFactory.getCommentDAO().addComment(userid, callnumber, comment);
+		boolean t=DAOFactory.getCommentDAO().addComment(userid, callnumber, comment);//添加评论
 		return t;
 	}
 	
 	private static void searchCommt(String callnumber) {
 		List<comment> cList=null;
-		cList=DAOFactory.getCommentDAO().searchComment(callnumber);
+		cList=DAOFactory.getCommentDAO().searchComment(callnumber);//查找评论
 		if(cList.size()==0)
 			System.out.println("暂时没有评论信息");
 		for(int i=0;i<cList.size();i++) {
@@ -469,7 +473,7 @@ public class test {
 		Scanner sc=new Scanner(System.in);
 		System.out.println("请输入您想操作书本的条形码:");
 		String ssh=sc.nextLine();
-		List<specificbook> kk=DAOFactory.getSpecificBookDAO().lookup(ssh);
+		List<specificbook> kk=DAOFactory.getSpecificBookDAO().lookup(ssh);//查找图书
 		if(kk.size()==0) {
 			System.out.println("条形码输入错误");
 			return;
