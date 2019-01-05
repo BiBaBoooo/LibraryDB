@@ -104,15 +104,7 @@ public class test {
 	}
 	
 	protected static void adminUpdateDetail() {//更新书籍详细信息
-		
-		//先输出所有的书籍信息
-		List<kindbook> kb=DAOFactory.getKindBookDAO().searchByC(null);
-		for(int i=0;i<kb.size();i++) {
-			kindbook k=kb.get(i);
-			System.out.println(k.getCallnumber()+"\t"+k.getBookname()+"\t"+k.getAuthor()+"\t"+k.getContent()+"\t"+k.getCount()
-					+"\t"+k.getCatalog()+"\t"+k.getPublish()+"\t"+k.getTopic());
-		}
-		
+		allbook();
 		System.out.println("请输入要完善的书籍的索书号:");
 		Scanner sc=new Scanner(System.in);
 		String callnumber=sc.nextLine();
@@ -129,19 +121,24 @@ public class test {
 			System.out.println("目录:"+k0.getCatalog());
 			System.out.println("出版社:"+k0.getPublish());
 			System.out.println("学科主题:"+k0.getTopic());
-
+			String ss=DAOFactory.getKCDAO().searchByC(k0.getCallnumber());
+			if(ss==null)
+				System.out.println("暂未分类");
+			else
+				System.out.println(ss);
 			System.out.println("请选择要完善的内容编号:");
 			System.out.println("\t1.书名");
-			System.out.println("\t2。作者");
+			System.out.println("\t2.作者");
 			System.out.println("\t3.该书在图书馆中的数量");
 			System.out.println("\t4.内容");
 			System.out.println("\t5.目录");
 			System.out.println("\t6.出版社");
 			System.out.println("\t7.学科主题");
-			System.out.println("\t8.退出");
+			System.out.println("\t8.类型");
+			System.out.println("\t9.退出");
 			int temp=Integer.parseInt(sc.nextLine());
 			String s=null;
-			if(temp!=8) {
+			if(temp!=9) {
 				System.out.println("要修改成:");
 				s=sc.nextLine();
 			}
@@ -175,6 +172,13 @@ public class test {
 					break;
 				}
 				case 8:{
+					String string=DAOFactory.getCategoryDAO().searchtypeid(s);
+					int t=Integer.valueOf(string);
+					boolean bool=DAOFactory.getKCDAO().insertt(t, k0.getCallnumber());
+					if(bool)System.out.println("添加类型成功！");
+					break;
+				}
+				case 9:{
 					b=false;
 					break;
 				}
@@ -448,7 +452,23 @@ public class test {
 			System.out.println(c.getUserid()+":"+c.getComment()+"\t"+c.getTime());
 		}
 	}
-	
+	private static void  allbook() {
+		System.out.println("索书号           书名                                    作者               内容               数量              目录              出版社           主题           类型");
+		//先输出所有的书籍信息
+		List<kindbook> kb=DAOFactory.getKindBookDAO().searchByC(null);
+		for(int i=0;i<kb.size();i++) {
+			kindbook k=kb.get(i);
+			System.out.print(k.getCallnumber()+"\t"+k.getBookname()+"\t"+k.getAuthor()+"\t"+k.getContent()+"\t"+k.getCount()
+					+"\t"+k.getCatalog()+"\t"+k.getPublish()+"\t"+k.getTopic()+"\t");
+			String type=DAOFactory.getKCDAO().searchByC(k.getCallnumber());
+			if(type==null)
+			{
+				System.out.println("暂无分类");
+			}
+			else
+				System.out.println(type);
+		}
+	}
 	private static void printl(String userid) {
 		Scanner sc=new Scanner(System.in);
 		System.out.println("请输入您想操作书本的条形码:");
@@ -503,7 +523,7 @@ public class test {
 	}
 	private static void print2(String bookid) {
 		Scanner sc=new Scanner(System.in);
-		System.out.println("请输入您想操作书本的条形码:");
+		System.out.println("\t请输入您想操作书本的条形码:");
 		String ssh=sc.nextLine();
 		List<specificbook> kk=DAOFactory.getSpecificBookDAO().lookup(ssh);//查找图书
 		if(kk.size()==0) {
