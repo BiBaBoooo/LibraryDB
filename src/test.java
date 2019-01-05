@@ -209,7 +209,7 @@ public class test {
 			System.out.println("\n索书号:\t条形码:\t借阅室:\t书刊状态:");
 			System.out.println(sb0.getCallnumber()+"\t"+sb0.getBarcode()+"\t"+sb0.getPlace()+"\t"+sb0.getState());
 		}
-		sc.close();
+		//sc.close();
 	}
 	protected static void user0(user u) {
 		Scanner sc=new Scanner(System.in);
@@ -289,8 +289,12 @@ public class test {
 		List<kindbook>kindbooks=DAOFactory.getCategoryDAO().searchtype(type);
 		for(int i=0;i<kindbooks.size();i++) {
 			kindbook kindbook=kindbooks.get(i);
-			System.out.print("索书号:"+kindbook.getCallnumber()+"  "+"书名:"+kindbook.getBookname()+"  "+"作者:"+kindbook.getAuthor()+"  "+"章节:"+kindbook.getCatalog()+"  "+"内容:"+kindbook.getContent()+"  "+"出版社:"+kindbook.getPublish());
-			
+			System.out.println("索书号:"+kindbook.getCallnumber()+"  "+"书名:"+kindbook.getBookname()+"  "+"作者:"+kindbook.getAuthor()+"  "+"章节:"+kindbook.getCatalog()+"  "+"内容:"+kindbook.getContent()+"  "+"出版社:"+kindbook.getPublish());
+			List<KS>specificbooks=DAOFactory.getSpecificBookDAO().search(kindbook.getBookname());
+			for(int j=0;j<specificbooks.size();j++) {
+				KS ks=specificbooks.get(j);
+				System.out.println("   				   条形码"+ks.getBarcode()+"       位置："+ks.getPlace());
+			}
 		}
 		if(kindbooks.size()==0)
 		{
