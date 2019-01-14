@@ -122,7 +122,7 @@ public class BDAOConcrete extends DAOBase implements BorrowDAO {
 			Calendar calendar=Calendar.getInstance();
 			Date backdate=new Date(calendar.getTime().getTime());
 			conn=getConnection();
-			ps=conn.prepareStatement("update borrow set status='已还',backdate=? where userid=? barcode=?");
+			ps=conn.prepareStatement("update borrow set status='已还',backdate=? where userid=? and barcode=?");
 			ps.setDate(1, backdate);
 			ps.setString(2, userid);
 			ps.setString(3, barcode);

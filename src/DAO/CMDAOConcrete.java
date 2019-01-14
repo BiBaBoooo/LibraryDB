@@ -31,7 +31,6 @@ public class CMDAOConcrete extends DAOBase implements CommentDAO{
 			Calendar calendar=Calendar.getInstance();
 			Date time=new Date(calendar.getTime().getTime());
 			ps.setDate(4, time);
-			
 			ps.executeUpdate();
 			b=true;		
 		}catch (Exception e) {
